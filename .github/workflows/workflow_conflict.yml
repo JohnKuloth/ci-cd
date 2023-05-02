@@ -1,0 +1,30 @@
+name: Check for merge conflicts
+
+on:
+  pull_request:
+      branches:
+        - '**'
+      types: [edited, opened, synchronize]
+
+jobs:
+  check-merge-conflicts:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: Check for merge conflicts
+      run: |
+        # Check for merge conflicts
+        if git merge-base --is-ancestor HEAD ${{ github.event.pull_request.base.sha }}; then
+          echo "No merge conflicts detected."
+        else
+          echo "Merge conflicts detected."
+          # Send notification to Slack
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"Merge conflict detected in '${{ github.event.pull_request.base.ref }}'! Please resolve before merging."}' \
+            https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK/URL
+        fi
