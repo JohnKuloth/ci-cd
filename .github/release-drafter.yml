@@ -13,8 +13,8 @@ version-resolver:
     labels:
       - 'patch'
   hotfix:
-  labels:
-    - 'hotfix'
+    labels:
+      - 'hotfix'
   default: patch
 template: |
   ## What's Changed
