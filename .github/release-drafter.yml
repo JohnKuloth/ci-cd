@@ -1,6 +1,7 @@
 name-template: 'v$RESOLVED_VERSION 🌈'
 tag-template: 'v$RESOLVED_VERSION'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+version-templates: '- $COMPLETE'
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 version-resolver:
   major:
@@ -18,5 +19,4 @@ template: |
   $CONTRIBUTORS
   $PREVIOUS_TAG
   $OWNER
-  $NEXT_{PATCH,MINOR,MAJOR}_VERSION
 
