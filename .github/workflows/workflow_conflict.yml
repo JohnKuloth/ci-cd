@@ -13,18 +13,28 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
       with:
-        ref: ${{ github.event.pull_request.head.sha }}
+        node-version: '14.x'
 
     - name: Check for merge conflicts
       run: |
-        # Check for merge conflicts
-        if git merge-base --is-ancestor HEAD ${{ github.event.pull_request.base.sha }}; then
-          echo "No merge conflicts detected."
+        git fetch --no-tags --prune --depth=1
+        if git merge-base --is-ancestor HEAD ${{ github.event.pull_request.head.sha }}; then
+          exit 0
         else
-          echo "Merge conflicts detected."
-          # Send notification to Slack
-          curl -X POST -H 'Content-type: application/json' \
-            --data '{"text":"Merge conflict detected in '${{ github.event.pull_request.base.ref }}'! Please resolve before merging."}' \
-            https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK/URL
+          exit 1
         fi
+      continue-on-error: true
+
+    - name: Send Slack notification
+      if: ${{ failure() }}
+      uses: slack/webhook-action@v2
+      with:
+        url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        text: "There is a merge conflict in pull request <${{ github.event.pull_request.html_url }}|#${{ github.event.pull_request.number }} ${{
+          github.event.pull_request.title }}>."
+        username: "GitHub Actions"
+        icon_emoji: ":warning:"
