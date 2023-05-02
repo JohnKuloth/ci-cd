@@ -8,4 +8,4 @@ on:
 jobs:
 
     draft_release: 
-    uses: ./.github/release-drafter.yml
+      uses: ./.github/release-drafter.yml
