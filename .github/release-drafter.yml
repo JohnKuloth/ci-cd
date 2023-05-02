@@ -14,10 +14,9 @@ version-resolver:
       - 'patch'
   default: patch
 template: |
-  ## Changes
   $CHANGES
-  ## Commits
-  $COMMITS
   $CONTRIBUTORS
   $PREVIOUS_TAG
+  $REPOSITORY	
+  $OWNER
 
