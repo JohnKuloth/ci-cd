@@ -13,12 +13,10 @@ version-resolver:
     labels:
       - 'patch'
   default: patch
-version-template: |
-  $COMPLETE
 template: |
   $CHANGES
   $CONTRIBUTORS
   $PREVIOUS_TAG
-  $REPOSITORY	
   $OWNER
+  $NEXT_{PATCH,MINOR,MAJOR}_VERSION
 
