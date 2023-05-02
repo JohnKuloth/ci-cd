@@ -1,7 +1,7 @@
 name-template: 'v$RESOLVED_VERSION '
 tag-template: 'v$RESOLVED_VERSION'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
-version-templates: '- $COMPLETE'
+version-templates: "$MAJOR.$MINOR.$PATCH"
 version-resolver:
   major:
     labels:
