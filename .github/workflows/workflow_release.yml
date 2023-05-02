@@ -1,0 +1,11 @@
+name: CI/CD Workflow - Hotfix branch
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+
+    draft_release: 
+    uses: ./.github/release-drafter.yml
