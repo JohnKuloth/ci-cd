@@ -15,6 +15,7 @@ version-resolver:
   default: patch
 template: |
   ## What's Changed
+  **Full Changelog**
   $CHANGES
   ## Contributors
   $CONTRIBUTORS
