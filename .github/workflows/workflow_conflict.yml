@@ -21,6 +21,7 @@ jobs:
           echo "No merge conflicts detected."
           exit 0
         else
+        echo "merge conflicts detected"
           exit 1
         fi
       continue-on-error: true
